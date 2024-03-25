@@ -7,16 +7,20 @@
     @cancel="deleteItems"
   />
   <hr class="h-px bg-gray-200 border-0 dark:bg-gray-700" />
-  <div class="flex flex-wrap justify-center mt-10">
+  <div class="flex flex-wrap justify-center mt-10" v-if="products">
     <ProductCard
-      v-for="item in array"
-      :id="item.id"
-      :key="item.id"
-      :sku="item.sku"
-      :name="item.name"
-      :price="item.price"
-      :attribute="item.attribute"
-      :value="item.id"
+      v-for="product in products"
+      :id="product.id"
+      :key="product.id"
+      :sku="product.sku"
+      :name="product.name"
+      :price="product.price"
+      :size="product.size"
+      :height="product.height"
+      :length="product.length"
+      :weight="product.length"
+      :width="product.width"
+      :type="product.type"
       @selected-boxes="handleSelect"
     />
   </div>
@@ -28,9 +32,11 @@ import TheNav from '@/components/TheNav.vue'
 import ProductCard from '@/components/ProductCard.vue'
 import TheFooter from '@/components/TheFooter.vue'
 import router from '@/router'
-import { ref } from 'vue'
-
+import { onMounted, ref } from 'vue'
+import axios from 'axios'
 const selectedBoxes = ref([])
+
+// Save checked cards in an array
 
 const handleSelect = (id, value) => {
   if (value === true) {
@@ -39,26 +45,37 @@ const handleSelect = (id, value) => {
     selectedBoxes.value = selectedBoxes.value.filter((e) => e != id)
   }
 }
+const products = ref()
+onMounted(() => {
+  fetchProducts()
+})
 
-const array = ref([
-  {
-    id: 1,
-    sku: 131,
-    name: 'idk',
-    price: 200,
-    attribute: '200kg'
-  },
+// Fetch products
 
-  {
-    id: 2,
-    sku: 200,
-    name: 'idk',
-    price: 400,
-    attribute: '400kg'
-  }
-])
+const fetchProducts = () => {
+  axios.get('http://127.0.0.1:8000/get').then((res) => {
+    products.value = res.data
+  })
+}
+
+// Delete products
 
 const deleteItems = () => {
-  array.value = array.value.filter((item) => !selectedBoxes.value.includes(item.id))
+  axios
+    .post('http://127.0.0.1:8000/delete', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: selectedBoxes.value
+    })
+    .then((response) => {
+      if (response.status == 200) {
+        fetchProducts()
+      }
+    })
+    .catch((error) => {
+      console.error('Error:', error)
+    })
 }
 </script>

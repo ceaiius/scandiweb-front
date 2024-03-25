@@ -16,13 +16,34 @@
       <h2 class="font-medium">{{ sku }}</h2>
       <h2 class="font-medium">{{ name }}</h2>
       <h2 class="font-medium">{{ price }}</h2>
-      <h2 class="font-medium">Weight: {{ attribute }}</h2>
+      <h2 class="font-medium">
+        {{
+          type == 1
+            ? 'Size: ' + size
+            : type == 2
+              ? 'Weight: ' + weight
+              : 'Dimensions: ' + height + 'x' + width + 'x' + length
+        }}
+      </h2>
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-defineProps(['sku', 'name', 'price', 'attribute', 'id', 'value'])
+defineProps([
+  'sku',
+  'name',
+  'price',
+  'attribute',
+  'id',
+  'value',
+  'type',
+  'size',
+  'length',
+  'height',
+  'width',
+  'weight'
+])
 const selectedBoxes = ref()
 </script>

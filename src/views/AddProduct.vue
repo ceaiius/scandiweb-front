@@ -42,7 +42,7 @@
             <option value="furniture">Furniture</option>
           </select>
         </div>
-        <div v-if="showDvd">
+        <div v-if="display.showDvd">
           <InputField
             id="size"
             type="text"
@@ -51,7 +51,7 @@
             v-model="formData.size"
           />
         </div>
-        <div v-else-if="showBook">
+        <div v-else-if="display.showBook">
           <InputField
             id="weight"
             type="text"
@@ -60,7 +60,7 @@
             v-model="formData.weight"
           />
         </div>
-        <div v-else-if="showFurniture">
+        <div v-else-if="display.showFurniture">
           <InputField
             id="height"
             type="text"
@@ -95,11 +95,10 @@ import TheNav from '@/components/TheNav.vue'
 import TheFooter from '@/components/TheFooter.vue'
 import InputField from '@/components/InputField.vue'
 import router from '@/router'
-import { ref, reactive, computed } from 'vue'
+import axios from 'axios'
+import { ref, reactive, computed, watch } from 'vue'
 const type = ref('')
-const showDvd = ref(false)
-const showBook = ref(false)
-const showFurniture = ref(false)
+
 const formData = reactive({
   sku: ref(''),
   name: ref(''),
@@ -111,11 +110,33 @@ const formData = reactive({
   length: ref(null)
 })
 
+// Hold the display states
+
+const display = reactive({
+  showDvd: false,
+  showBook: false,
+  showFurniture: false
+})
+
+// Update types
+
+watch(
+  () => type.value,
+  (newType) => {
+    display.showDvd = newType === 'dvd'
+    display.showBook = newType === 'book'
+    display.showFurniture = newType === 'furniture'
+  }
+)
+
+// Get form values
+
 const formDataObject = computed(() => {
   return {
-    sku: formData.sku,
+    SKU: formData.sku,
     name: formData.name,
     price: formData.price,
+    type: type.value == 'dvd' ? 1 : type.value == 'book' ? 2 : 3,
     size: formData.size,
     weight: formData.weight,
     height: formData.height,
@@ -124,23 +145,24 @@ const formDataObject = computed(() => {
   }
 })
 
-const handleChange = () => {
-  if (type.value === 'dvd') {
-    showDvd.value = true
-    showBook.value = false
-    showFurniture.value = false
-  } else if (type.value === 'book') {
-    showBook.value = true
-    showFurniture.value = false
-    showDvd.value = false
-  } else if (type.value === 'furniture') {
-    showFurniture.value = true
-    showBook.value = false
-    showDvd.value = false
-  }
-}
+// Add products
 
 const handleSubmit = () => {
-  console.log(formDataObject.value)
+  axios
+    .post('http://127.0.0.1:8000/add', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formDataObject.value)
+    })
+    .then((response) => {
+      if (response.status == 200) {
+        router.push({ name: 'home' })
+      }
+    })
+    .catch((error) => {
+      console.error('Error:', error)
+    })
 }
 </script>
