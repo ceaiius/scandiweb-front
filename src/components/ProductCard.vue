@@ -15,13 +15,13 @@
     >
       <h2 class="font-medium">{{ sku }}</h2>
       <h2 class="font-medium">{{ name }}</h2>
-      <h2 class="font-medium">{{ price }}</h2>
+      <h2 class="font-medium">{{ price }} $</h2>
       <h2 class="font-medium">
         {{
           type == 1
-            ? 'Size: ' + size
+            ? 'Size: ' + size + ' MB'
             : type == 2
-              ? 'Weight: ' + weight
+              ? 'Weight: ' + weight + ' KG'
               : 'Dimensions: ' + height + 'x' + width + 'x' + length
         }}
       </h2>
