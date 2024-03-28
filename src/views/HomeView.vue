@@ -5,7 +5,7 @@
   <div class="flex flex-wrap justify-center mt-10" v-if="products">
     <ProductCard v-for="product in products" :id="product.id" :key="product.id" :sku="product.sku" :name="product.name"
       :price="product.price" :size="product.size" :height="product.height" :length="product.length"
-      :weight="product.length" :width="product.width" :type="product.type" @selected-boxes="handleSelect" />
+      :weight="product.weight" :width="product.width" :type="product.type" @selected-boxes="handleSelect" />
   </div>
   <TheFooter />
 </template>
