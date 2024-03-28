@@ -1,6 +1,6 @@
 <template>
-  <Form action="" id="product_form" @submit="handleSubmit">
-    <TheNav addButton="save" deleteButton="cancel" @cancel="router.push({ name: 'home' })" type="submit" class="" />
+  <Form id="product_form" @submit="handleSubmit">
+    <TheNav addButton="Save" deleteButton="Cancel" @cancel="router.push({ name: 'home' })" type="submit" class="" />
     <hr class="h-px bg-gray-200 border-0 dark:bg-gray-700" />
     <div class="grid grid-cols-2">
       <div class="max-w-screen-xl flex flex-col flex-wrap items-center justify-between mx-auto pl-20 pt-20 relative">

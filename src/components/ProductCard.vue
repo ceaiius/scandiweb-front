@@ -1,7 +1,7 @@
 <template>
   <div class="p-4 w-80 relative">
     <div class="absolute top-8 left-8">
-      <input :id="id" :value="value" type="checkbox" class=".delete-checkbox accent-gray-700" v-model="selectedBoxes"
+      <input :id="id" :value="value" type="checkbox" class="delete-checkbox" v-model="selectedBoxes"
         @change="$emit('selected-boxes', id, selectedBoxes)" />
     </div>
     <div
