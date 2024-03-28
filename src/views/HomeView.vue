@@ -36,7 +36,7 @@ onMounted(() => {
 // Fetch products
 
 const fetchProducts = () => {
-  axios.get('https://scandiweb-api-966ac6c5a83f.herokuapp.com/get').then((res) => {
+  axios.get(`${import.meta.env.VITE_SCANDIWEB_API}get`).then((res) => {
     products.value = res.data
   })
 }
@@ -45,7 +45,7 @@ const fetchProducts = () => {
 
 const deleteItems = () => {
   axios
-    .post('https://scandiweb-api-966ac6c5a83f.herokuapp.com/delete', {
+    .post(`${import.meta.env.VITE_SCANDIWEB_API}delete`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

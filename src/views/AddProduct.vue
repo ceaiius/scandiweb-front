@@ -109,7 +109,7 @@ const formDataObject = computed(() => {
 
 const handleSubmit = () => {
   axios
-    .post('https://scandiweb-api-966ac6c5a83f.herokuapp.com/add', {
+    .post(`${import.meta.env.VITE_SCANDIWEB_API}add/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
