@@ -1,57 +1,21 @@
 <template>
   <Form action="" id="product_form" @submit="handleSubmit">
-    <TheNav
-      addButton="save"
-      deleteButton="cancel"
-      @cancel="router.push({ name: 'home' })"
-      type="submit"
-      class=""
-    />
+    <TheNav addButton="save" deleteButton="cancel" @cancel="router.push({ name: 'home' })" type="submit" class="" />
     <hr class="h-px bg-gray-200 border-0 dark:bg-gray-700" />
     <div class="grid grid-cols-2">
-      <div
-        class="max-w-screen-xl flex flex-col flex-wrap items-center justify-between mx-auto pl-20 pt-20 relative"
-      >
-        <InputField
-          id="sku"
-          name="sku"
-          type="text"
-          placeholder="#sku"
-          label="SKU"
-          v-model="formData.sku"
-          rules="required"
-          class="absolute top-[140px] left-[200px]"
-        />
-        <InputField
-          id="name"
-          name="name"
-          type="text"
-          placeholder="#name"
-          label="Name"
-          v-model="formData.name"
-          rules="required"
-          class="absolute top-[200px] left-[200px]"
-        />
-        <InputField
-          id="price"
-          name="price"
-          type="number"
-          placeholder="#price"
-          label="Price ($)"
-          v-model="formData.price"
-          rules="required"
-          class="absolute top-[260px] left-[200px]"
-        />
+      <div class="max-w-screen-xl flex flex-col flex-wrap items-center justify-between mx-auto pl-20 pt-20 relative">
+        <InputField id="sku" name="sku" type="text" placeholder="#sku" label="SKU" v-model="formData.sku"
+          rules="required" class="absolute top-[140px] left-[200px]" />
+        <InputField id="name" name="name" type="text" placeholder="#name" label="Name" v-model="formData.name"
+          rules="required" class="absolute top-[200px] left-[200px]" />
+        <InputField id="price" name="price" type="number" placeholder="#price" label="Price ($)"
+          v-model="formData.price" rules="required" class="absolute top-[260px] left-[200px]" />
         <div class="flex justify-center items-center gap-[70px] pt-6">
           <label for="productType" class="mb-2 w-44 text-sm pt-2 font-medium text-gray-900">
-            Type Switcher</label
-          >
-          <select
-            id="productType"
+            Type Switcher</label>
+          <select id="productType"
             class="bg-gray-50 border border-solid border-black text-gray-900 text-sm focus:gray-red-500 focus:gray-red-500 block w-48 p-2.5"
-            @change="handleChange"
-            v-model="type"
-          >
+            @change="handleChange" v-model="type">
             <option disabled value="">Type Switcher</option>
             <option value="dvd" id="DVD">DVD</option>
             <option value="book" id="Book">Book</option>
@@ -59,67 +23,22 @@
           </select>
         </div>
         <div v-if="display.showDvd" class="">
-          <InputField
-            id="size"
-            name="size"
-            type="text"
-            placeholder="#size"
-            label="Size (MB)"
-            v-model="formData.size"
-            attribute="true"
-            rules="required"
-            class="pl-[120px]"
-          />
+          <InputField id="size" name="size" type="text" placeholder="#size" label="Size (MB)" v-model="formData.size"
+            attribute="true" rules="required" class="pl-[120px]" />
           <p class="text-sm pl-[120px] text-[#51829B]">Please, select size</p>
         </div>
         <div v-else-if="display.showBook" class="">
-          <InputField
-            id="weight"
-            name="weight"
-            type="text"
-            placeholder="#weight"
-            label="Weight (KG)"
-            v-model="formData.weight"
-            attribute="true"
-            rules="required"
-            class="pl-[120px]"
-          />
+          <InputField id="weight" name="weight" type="text" placeholder="#weight" label="Weight (KG)"
+            v-model="formData.weight" attribute="true" rules="required" class="pl-[120px]" />
           <p class="text-sm pl-[120px] text-[#51829B]">Please, select weight</p>
         </div>
         <div v-else-if="display.showFurniture" class="">
-          <InputField
-            id="height"
-            name="height"
-            type="text"
-            placeholder="#height"
-            label="Height (MB)"
-            v-model="formData.height"
-            attribute="true"
-            rules="required"
-            class="pl-[120px]"
-          />
-          <InputField
-            id="width"
-            name="width"
-            type="text"
-            placeholder="#width"
-            label="Width (MB)"
-            v-model="formData.width"
-            attribute="true"
-            rules="required"
-            class="pl-[120px]"
-          />
-          <InputField
-            id="length"
-            name="length"
-            type="text"
-            placeholder="#length"
-            label="Length (MB)"
-            v-model="formData.length"
-            attribute="true"
-            rules="required"
-            class="pl-[120px]"
-          />
+          <InputField id="height" name="height" type="text" placeholder="#height" label="Height (MB)"
+            v-model="formData.height" attribute="true" rules="required" class="pl-[120px]" />
+          <InputField id="width" name="width" type="text" placeholder="#width" label="Width (MB)"
+            v-model="formData.width" attribute="true" rules="required" class="pl-[120px]" />
+          <InputField id="length" name="length" type="text" placeholder="#length" label="Length (MB)"
+            v-model="formData.length" attribute="true" rules="required" class="pl-[120px]" />
           <p class="text-sm pl-[120px] text-[#51829B]">Please, select dimensions in HxWxL format</p>
         </div>
       </div>
@@ -190,7 +109,7 @@ const formDataObject = computed(() => {
 
 const handleSubmit = () => {
   axios
-    .post('http://127.0.0.1:8000/add', {
+    .post('https://scandiweb-api-966ac6c5a83f.herokuapp.com/add', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

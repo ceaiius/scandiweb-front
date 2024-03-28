@@ -1,28 +1,11 @@
 <template>
-  <TheNav
-    addButton="add"
-    deleteButton="mass delete"
-    @add="router.push({ name: 'add' })"
-    id="delete-product-btn"
-    @cancel="deleteItems"
-  />
+  <TheNav addButton="ADD" deleteButton="MASS DELETE" @add="router.push({ name: 'add' })" id="delete-product-btn"
+    @cancel="deleteItems" />
   <hr class="h-px bg-gray-200 border-0 dark:bg-gray-700" />
   <div class="flex flex-wrap justify-center mt-10" v-if="products">
-    <ProductCard
-      v-for="product in products"
-      :id="product.id"
-      :key="product.id"
-      :sku="product.sku"
-      :name="product.name"
-      :price="product.price"
-      :size="product.size"
-      :height="product.height"
-      :length="product.length"
-      :weight="product.length"
-      :width="product.width"
-      :type="product.type"
-      @selected-boxes="handleSelect"
-    />
+    <ProductCard v-for="product in products" :id="product.id" :key="product.id" :sku="product.sku" :name="product.name"
+      :price="product.price" :size="product.size" :height="product.height" :length="product.length"
+      :weight="product.length" :width="product.width" :type="product.type" @selected-boxes="handleSelect" />
   </div>
   <TheFooter />
 </template>
@@ -53,7 +36,7 @@ onMounted(() => {
 // Fetch products
 
 const fetchProducts = () => {
-  axios.get('http://127.0.0.1:8000/get').then((res) => {
+  axios.get('https://scandiweb-api-966ac6c5a83f.herokuapp.com/get').then((res) => {
     products.value = res.data
   })
 }
@@ -62,7 +45,7 @@ const fetchProducts = () => {
 
 const deleteItems = () => {
   axios
-    .post('http://127.0.0.1:8000/delete', {
+    .post('https://scandiweb-api-966ac6c5a83f.herokuapp.com/delete', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
