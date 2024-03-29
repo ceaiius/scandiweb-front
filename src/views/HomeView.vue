@@ -1,11 +1,28 @@
 <template>
-  <TheNav addButton="ADD" deleteButton="MASS DELETE" @add="router.push({ name: 'add' })" id="delete-product-btn"
-    @cancel="deleteItems" />
+  <TheNav
+    addButton="ADD"
+    deleteButton="MASS DELETE"
+    @add="router.push({ name: 'add' })"
+    id="delete-product-btn"
+    @cancel="deleteItems"
+  />
   <hr class="h-px bg-gray-200 border-0 dark:bg-gray-700" />
   <div class="flex flex-wrap justify-center mt-10" v-if="products">
-    <ProductCard v-for="product in products" :id="product.id" :key="product.id" :sku="product.sku" :name="product.name"
-      :price="product.price" :size="product.size" :height="product.height" :length="product.length"
-      :weight="product.weight" :width="product.width" :type="product.type" @selected-boxes="handleSelect" />
+    <ProductCard
+      v-for="product in products"
+      :id="product.id"
+      :key="product.id"
+      :sku="product.sku"
+      :name="product.name"
+      :price="product.price"
+      :size="product.size"
+      :height="product.height"
+      :length="product.length"
+      :weight="product.weight"
+      :width="product.width"
+      :type="product.type"
+      @selected-boxes="handleSelect"
+    />
   </div>
   <TheFooter />
 </template>
